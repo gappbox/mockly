@@ -1,0 +1,15 @@
+.rs-theme-dark {
+  --rs-primary-50: #f9dec5;
+  --rs-primary-100: #f4c497;
+  --rs-primary-200: #efaa68;
+  --rs-primary-300: #eb903a;
+  --rs-primary-400: #dc7616;
+  --rs-primary-500: #c56a14;
+  --rs-primary-600: #ad5d11;
+  --rs-primary-700: #c56a14;
+  --rs-primary-800: #7f440c;
+  --rs-primary-900: #512b08;
+  --rs-border-primary: var(--rs-gray-700);
+  --rs-input-focus-border: var(--rs-primary-300);
+  --rs-state-hover-bg: var(--rs-gray-700);
+}

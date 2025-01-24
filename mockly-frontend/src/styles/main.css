@@ -1,0 +1,35 @@
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--rs-table-scrollbar-track);
+}
+
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: var(--rs-table-scrollbar-track);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--rs-table-scrollbar-thumb);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Noto Sans', sans-serif;
+  font-synthesis: none;
+  height: 100dvh;
+  min-width: 320px;
+  opacity: 1;
+  overflow: hidden !important;
+  text-rendering: optimizeLegibility;
+  transition: opacity .2s ease-in;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
