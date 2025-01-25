@@ -1,0 +1,60 @@
+name: Check and Build
+
+on:
+  pull_request:
+    types:
+      - labeled
+      - unlabeled
+      - synchronize
+    branches:
+      - main
+
+jobs:
+  labels:
+    name: Check labels
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for "release" labels
+        uses: actions/github-script@v7
+        id: labels
+        with:
+          script: |
+            const optionalLabels = ['major', 'minor', 'patch'];
+            const labels = context.payload.pull_request.labels.map((label) => label.name);
+            
+            if (!optionalLabels.some(label => labels.includes(label))) {
+              core.setFailed(`❌ A versioning label is required. Please add one of the following labels to proceed: "major", "minor" or "patch".`);
+              return;
+            }
+
+  build:
+    name: Test and Build
+    needs: labels
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.11.0"
+
+      - name: FrontEnd - Install dependencies
+        working-directory: ./mockly-frontend
+        run: npm install
+
+      - name: FrontEnd - Build artifact
+        working-directory: ./mockly-frontend
+        run: npm run build
+
+      - name: BackEnd - Install dependencies
+        working-directory: ./mockly-backend
+        run: npm install
+
+      - name: BackEnd - Run tests
+        working-directory: ./mockly-backend
+        run: npm test
