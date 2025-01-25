@@ -19,17 +19,17 @@ jobs:
         id: labels
         with:
           script: |
-            const labels = context.payload.pull_request.labels.map((label) => label.name);
+#            const labels = context.payload.pull_request.labels.map((label) => label.name);
 
             let versionType = 'patch';
             
-            if (labels.includes('patch')) {
-              versionType = 'patch';
-            } else if (labels.includes('minor')) {
-              versionType = 'minor';
-            } else if (labels.includes('major')) {
-              versionType = 'major';
-            }
+#            if (labels.includes('patch')) {
+#              versionType = 'patch';
+#            } else if (labels.includes('minor')) {
+#              versionType = 'minor';
+#            } else if (labels.includes('major')) {
+#              versionType = 'major';
+#            }
             
             core.setOutput('versionType', versionType);
 
