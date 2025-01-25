@@ -80,4 +80,4 @@ jobs:
           git add mockly-frontend/package.json
           git add mockly-frontend/package-lock.json
           git commit -m "chore: bump version to ${{ needs.version.outputs.version }}"
-          git push origin main
+          git push origin feature-cicd
