@@ -21,7 +21,7 @@ jobs:
           script: |
 #            const labels = context.payload.pull_request.labels.map((label) => label.name);
 
-            let versionType = 'patch';
+#            let versionType = 'patch';
             
 #            if (labels.includes('patch')) {
 #              versionType = 'patch';
@@ -31,7 +31,7 @@ jobs:
 #              versionType = 'major';
 #            }
             
-            core.setOutput('versionType', versionType);
+            core.setOutput('versionType', 'patch');
 
   version:
     name: Setup package version
