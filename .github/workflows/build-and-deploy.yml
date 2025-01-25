@@ -1,0 +1,153 @@
+name: Build and Deploy
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  labels:
+    if: ${{ github.event.pull_request.merged }}
+    name: Validate labels
+    runs-on: ubuntu-latest
+    outputs:
+      deployToDockerHub: ${{ steps.labels.outputs.deployToDockerHub }}
+      versionType: ${{ steps.labels.outputs.versionType }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for "release" labels
+        uses: actions/github-script@v7
+        id: labels
+        with:
+          script: |
+            const labels = context.payload.pull_request.labels.map((label) => label.name);
+            const deployToDockerHub = labels.includes('docker');
+
+            let versionType = 'patch';
+            
+            if (labels.includes('patch')) {
+            versionType = 'patch';
+            } else if (labels.includes('minor')) {
+            versionType = 'minor';
+            } else if (labels.includes('major')) {
+            versionType = 'major';
+            }
+            
+            core.setOutput('deployToDockerHub', deployToDockerHub);
+            core.setOutput('versionType', versionType);
+
+  version:
+    name: Setup package version
+    needs: labels
+    runs-on: ubuntu-latest
+    outputs:
+      deployToDockerHub: ${{ needs.labels.outputs.deployToDockerHub }}
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.11.0"
+
+      - name: Install semver package
+        run: npm install semver --no-save
+
+      - name: Determine new version
+        id: version
+        run: |
+          OLD_VERSION=$(jq -r '.version' package.json)
+          NEW_VERSION=$(node -e "console.log(require('semver').inc('$OLD_VERSION', '${{ needs.labels.outputs.versionType }}'))")
+          echo "version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+
+  package:
+    name: Update Package Version
+    needs: version
+    runs-on: ubuntu-latest
+    outputs:
+      deployToDockerHub: ${{ needs.version.outputs.deployToDockerHub }}
+      version: ${{ needs.version.outputs.version }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update Root package.json
+        run: |
+          jq ".version = \"${{ needs.version.outputs.version }}\"" package.json > temp.json && mv temp.json package.json
+
+      - name: Update FrontEnd package.json
+        run: |
+          jq ".version = \"${{ needs.version.outputs.version }}\"" mockly-frontend/package.json > mockly-frontend/temp.json && mv mockly-frontend/temp.json mockly-frontend/package.json
+
+      - name: Update BackEnd package.json
+        run: |
+          jq ".version = \"${{ needs.version.outputs.version }}\"" mockly-backend/package.json > mockly-backend/temp.json && mv mockly-backend/temp.json mockly-backend/package.json
+
+      - name: Update package-lock.json with New Version
+        run: |
+          npm install --prefix mockly-frontend
+          npm install --prefix mockly-backend
+
+      - name: Commit and Push New Version
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add package.json
+          git add mockly-backend/package.json
+          git add mockly-backend/package-lock.json
+          git add mockly-frontend/package.json
+          git add mockly-frontend/package-lock.json
+          git commit -m "chore: bump version to ${{ needs.version.outputs.version }}"
+          git push origin main
+
+  deployToDockerHub:
+    if: ${{ needs.package.outputs.deployToDockerHub == 'true' }}
+    name: Deploy to Docker Hub
+    needs: package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.11.0"
+
+      - name: FrontEnd - Install dependencies
+        working-directory: ./mockly-frontend
+        run: npm install
+
+      - name: FrontEnd - Build artifact
+        working-directory: ./mockly-frontend
+        run: npm run build
+
+      - name: BackEnd - Install dependencies
+        working-directory: ./mockly-backend
+        run: npm install
+
+      - name: BackEnd - Run tests
+        working-directory: ./mockly-backend
+        run: npm test
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USER }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Build and Push to Docker Hub
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          build-args: |
+            APP_VERSION=${{ needs.package.outputs.version }}
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_HUB_USER }}/mockly:${{ needs.package.outputs.version }}
+            ${{ secrets.DOCKER_HUB_USER }}/mockly:latest
