@@ -2,7 +2,7 @@
   "name": "mockly",
   "author": "Ievgen Golovachov <ievgen.golovachov@codify.co.ua>",
   "description": "Easily generate and manage mock data for testing and development",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "start": "node src/app.js",
     "start:dev": "NODE_ENV=development nodemon src/app.js",
