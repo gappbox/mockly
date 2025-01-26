@@ -1,6 +1,6 @@
 {
   "name": "mockly",
-  "author": "Ievgen Golovachov",
+  "author": "Ievgen Golovachov <ievgen.golovachov@codify.co.ua>",
   "description": "Easily generate and manage mock data for testing and development",
   "private": true,
   "version": "1.0.0",
