@@ -1,14 +1,14 @@
 const express = require('express');
 const request = require('supertest');
-const headersMiddleware = require('../src/app-headers.middleware');
+const metadataMiddleware = require('../src/middlewares/metadata.middleware');
 const { version } = require('../package.json');
 
-describe('Headers Middleware', () => {
+describe('metadata middleware', () => {
   let app;
 
   beforeEach(() => {
     app = express();
-    app.use(headersMiddleware);
+    app.use(metadataMiddleware);
     app.get('/', (req, res) => res.send('OK'));
   });
 

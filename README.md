@@ -33,7 +33,7 @@ Ensure you have Docker installed on your machine:
 Download the latest Mockly image from Docker Hub:
 
 ```bash
-  docker pull gappbox/mockly:latest
+docker pull gappbox/mockly:latest
 ```
 
 #### Run the Docker Container
@@ -41,7 +41,7 @@ Download the latest Mockly image from Docker Hub:
 Start the container using the following command:
 
 ```bash
-  docker run -d -p 5174:5174 --name mockly gappbox/mockly:latest
+docker run -d -p 5174:5174 --name mockly gappbox/mockly:latest
 ```
 
 #### Using Docker Compose (Optional)

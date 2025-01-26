@@ -13,7 +13,7 @@ dist
 dist-ssr
 lerna-debug.log*
 logs
-mockly-frontend/.idea
+frontend/.idea
 node_modules
 npm-debug.log*
 pnpm-debug.log*
