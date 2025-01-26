@@ -44,17 +44,17 @@ jobs:
           node-version: "22.11.0"
 
       - name: FrontEnd - Install dependencies
-        working-directory: ./mockly-frontend
+        working-directory: ./frontend
         run: npm install
 
       - name: FrontEnd - Build artifact
-        working-directory: ./mockly-frontend
+        working-directory: ./frontend
         run: npm run build
 
       - name: BackEnd - Install dependencies
-        working-directory: ./mockly-backend
+        working-directory: ./backend
         run: npm install
 
       - name: BackEnd - Run tests
-        working-directory: ./mockly-backend
+        working-directory: ./backend
         run: npm test

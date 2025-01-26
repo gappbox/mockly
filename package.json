@@ -6,11 +6,11 @@
   "version": "1.0.0",
   "scripts": {
     "install:all": "npm run install:backend && npm run install:frontend",
-    "install:backend": "cd mockly-backend && npm install",
-    "install:frontend": "cd mockly-frontend && npm install",
-    "start:backend": "cd mockly-backend && npm run start:dev",
-    "start:frontend": "cd mockly-frontend && npm run dev",
-    "test:backend": "cd mockly-backend && npm test",
-    "build:frontend": "cd mockly-frontend && npm run build"
+    "install:backend": "cd backend && npm install",
+    "install:frontend": "cd frontend && npm install",
+    "start:backend": "cd backend && npm run start:dev",
+    "start:frontend": "cd frontend && npm run dev",
+    "test:backend": "cd backend && npm test",
+    "build:frontend": "cd frontend && npm run build"
   }
 }

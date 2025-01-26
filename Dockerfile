@@ -11,8 +11,8 @@ LABEL org.opencontainers.image.licenses="MIT"
 
 WORKDIR /usr/src/app
 
-COPY ./mockly-backend ./
-COPY ./mockly-frontend/dist ./public
+COPY ./backend ./
+COPY ./frontend/dist ./public
 
 RUN npm install --omit=dev && npm cache clean --force
 

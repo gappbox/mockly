@@ -1,4 +1,4 @@
-const config = require('../src/app.config');
+const config = require('../src/dataset/dataset.config');
 const {
   createObject,
   generateMockData,
@@ -8,14 +8,14 @@ const {
   getTypeCodes,
   getTypeOptions,
   getOptions,
-} = require('../src/app.service');
+} = require('../src/dataset/dataset.service');
 
 const items = [
   { id: "1", field: "id", category: "string", type: "uuid" },
   { id: "2", field: "name", category: "person", type: "fullName" },
 ];
 
-describe('App Service', () => {
+describe('dataset service', () => {
   describe('getCategories', () => {
     test('should return an array length', () => {
       expect(getCategories()).toHaveLength(config.categories.length);

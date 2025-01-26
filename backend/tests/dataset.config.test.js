@@ -1,14 +1,16 @@
 const { faker } = require('@faker-js/faker');
-const { types } = require('../src/app.config');
+const { types } = require('../src/dataset/dataset.config');
 
-describe('App Config', () => {
+describe('dataset config', () => {
   test('should generate valid values for all faker types and codes', () => {
     Object.keys(types).forEach((category) => {
       types[category].forEach((item) => {
         const value = faker[category][item.code]();
-        const equal = typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean';
+        const equal = typeof value === 'string'
+          || typeof value === 'number'
+          || typeof value === 'boolean';
 
-        expect(equal).toBe(true);
+        expect(equal).toBeTruthy();
       });
     });
   });
