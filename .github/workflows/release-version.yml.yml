@@ -1,0 +1,93 @@
+name: Release Version
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  validate-labels:
+    if: ${{ github.event.pull_request.merged }}
+    name: Validate labels
+    runs-on: ubuntu-latest
+    outputs:
+      versionType: ${{ steps.labels.outputs.versionType }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for Required Labels
+        uses: actions/github-script@v7
+        id: labels
+        with:
+          script: |
+            const labels = context.payload.pull_request.labels.map((label) => label.name);
+
+            let versionType = 'patch';
+            
+            if (labels.includes('patch')) {
+              versionType = 'patch';
+            } else if (labels.includes('minor')) {
+              versionType = 'minor';
+            }
+            
+            core.setOutput('versionType', versionType);
+
+  determine-version:
+    name: Determine New Version
+    needs: validate-labels
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.11.0"
+
+      - name: Install Dependencies
+        run: npm install semver --no-save
+
+      - name: Determine New Version
+        id: version
+        run: |
+          OLD_VERSION=$(jq -r '.version' package.json)
+          NEW_VERSION=$(node -e "console.log(require('semver').inc('$OLD_VERSION', '${{ needs.validate-labels.outputs.versionType }}'))")
+          echo "version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+
+  update-version-files:
+    name: Update Version Files
+    needs: determine-version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ needs.determine-version.outputs.version }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update package.json Files
+        run: |
+          jq ".version = \"${{ needs.determine-version.outputs.version }}\"" package.json > temp.json && mv temp.json package.json
+          jq ".version = \"${{ needs.determine-version.outputs.version }}\"" frontend/package.json > frontend/temp.json && mv frontend/temp.json frontend/package.json
+          jq ".version = \"${{ needs.determine-version.outputs.version }}\"" backend/package.json > backend/temp.json && mv backend/temp.json backend/package.json
+
+      - name: Update package-lock.json Files with New Version
+        run: |
+          npm install --prefix frontend
+          npm install --prefix backend
+
+      - name: Commit and Push New Version
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add package.json
+          git add backend/package.json
+          git add backend/package-lock.json
+          git add frontend/package.json
+          git add frontend/package-lock.json
+          git commit -m "chore: bump version to ${{ needs.determine-version.outputs.version }}"
+          git push origin main
