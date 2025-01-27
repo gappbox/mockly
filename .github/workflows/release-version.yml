@@ -9,7 +9,7 @@ on:
 jobs:
   validate-labels:
     if: ${{ github.event.pull_request.merged }}
-    name: Validate labels
+    name: Validate Labels
     runs-on: ubuntu-latest
     outputs:
       versionType: ${{ steps.labels.outputs.versionType }}

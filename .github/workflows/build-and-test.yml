@@ -11,7 +11,7 @@ on:
 
 jobs:
   validate-labels:
-    name: Validate Labels
+    name: Labels Workflow
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
