@@ -53,15 +53,11 @@ jobs:
         working-directory: ./backend
         run: npm test
 
-      - name: Make artifact
+      - name: Run Build Artifact
         run: |
           mkdir -p temp public
           cp -r ./frontend/dist/* public
-          zip -r artifact.zip \
-            ./backend/src \
-            ./backend/package.json \
-            ./backend/package-lock.json \
-            ./public
+          zip -r artifact.zip ./backend/src ./backend/package.json ./backend/package-lock.json ./public
           mv artifact.zip ./temp
 
       - name: Deploy to Remote Server
