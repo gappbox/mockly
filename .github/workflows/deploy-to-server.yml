@@ -1,4 +1,4 @@
-name: Deploy to Server
+name: Deploy to Remote Server
 
 on:
   push:
@@ -12,8 +12,8 @@ on:
 #        required: true
 
 jobs:
-  docker:
-    name: Deploy to Server
+  build:
+    name: Build Artifact
     runs-on: ubuntu-latest
     steps:
 #      - name: Verify Secure Code
@@ -53,14 +53,31 @@ jobs:
         working-directory: ./backend
         run: npm test
 
-      - name: Run Build Artifact
+      - name: Build Artifact
         run: |
           mkdir -p temp public
           cp -r ./frontend/dist/* public
           zip -r artifact.zip ./backend/src ./backend/package.json ./backend/package-lock.json ./public
           mv artifact.zip ./temp
 
-      - name: Deploy to Remote Server
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifact
+          path: temp/artifact.zip
+
+  deploy:
+    name: Deploy Artifact
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifact
+          path: temp
+
+      - name: Upload Artifact
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
