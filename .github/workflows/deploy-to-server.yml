@@ -63,16 +63,12 @@ jobs:
             ./backend/package-lock.json \
             ./public
           mv artifact.zip ./temp
-          
-          ls -la
-          ls -la temp
 
-#      - name: Deploy to Remote Server
-#        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-#        with:
-#          server: ${{ secrets.FTP_SERVER }}
-#          username: ${{ secrets.FTP_USER }}
-#          password: ${{ secrets.FTP_PASSWORD }}
-#          local-dir: ./temp/
-#          server-dir: ./
-#          dangerous-clean-slate: true
+      - name: Deploy to Remote Server
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./temp/
+          server-dir: ./
