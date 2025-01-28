@@ -95,14 +95,28 @@ jobs:
     steps:
       - name: Refresh NodeApp
         run: |
-          curl -s -i -X POST "${{ secrets.WEBHOOK }}" \
-          -H "Authorization: Bearer ${{ secrets.WEBHOOK_SECRET }}" \
-          -H "Content-Type: application/json" \
-          -d '{"command": "refreshNodeApp", "payload": {"target": "${{ secrets.TARGET }}"}}'
+          response=$(curl -s -o response.json -w "%{http_code}" \
+            -X POST "${{ secrets.WEBHOOK }}" \
+            -H "Authorization: Bearer ${{ secrets.WEBHOOK_SECRET }}" \
+            -H "Content-Type: application/json" \
+            -d '{"command": "refreshNodeApp", "payload": {"target": "${{ secrets.TARGET }}"}}')
+          
+          if [ "$response" -ne 200 ]; then
+            echo "Error during Refresh NodeApp. Response code: $response"
+            cat response.json
+            exit 1
+          fi
 
       - name: Restart NodeApp
         run: |
-          curl -s -i -X POST "${{ secrets.WEBHOOK }}" \
-          -H "Authorization: Bearer ${{ secrets.WEBHOOK_SECRET }}" \
-          -H "Content-Type: application/json" \
-          -d '{"command": "restartNodeApp", "payload": {"targetId": "${{ secrets.TARGET_ID }}"}}'
+          response=$(curl -s -o response.json -w "%{http_code}" \
+            -X POST "${{ secrets.WEBHOOK }}" \
+            -H "Authorization: Bearer ${{ secrets.WEBHOOK_SECRET }}" \
+            -H "Content-Type: application/json" \
+            -d '{"command": "restartNodeApp", "payload": {"targetId": "${{ secrets.TARGET_ID }}"}}')
+          
+          if [ "$response" -ne 200 ]; then
+            echo "Error during Restart NodeApp. Response code: $response"
+            cat response.json
+            exit 1
+          fi
