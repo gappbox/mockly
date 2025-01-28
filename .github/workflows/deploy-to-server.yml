@@ -63,7 +63,7 @@ jobs:
           mv artifact.zip ./temp
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-artifact
           path: temp/artifact.zip
@@ -74,7 +74,7 @@ jobs:
     needs: build
     steps:
       - name: Download Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: temp
