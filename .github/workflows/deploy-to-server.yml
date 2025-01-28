@@ -1,0 +1,78 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - test
+#  workflow_dispatch:
+#    inputs:
+#      code:
+#        description: "Secure Code"
+#        type: string
+#        required: true
+
+jobs:
+  docker:
+    name: Deploy to Server
+    runs-on: ubuntu-latest
+    steps:
+#      - name: Verify Secure Code
+#        run: |
+#          if [[ "${{ inputs.code }}" != "${{ secrets.SECURE_CODE }}" ]]; then
+#            echo "❌ Invalid Secure Code"
+#            exit 1
+#          fi
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get Latest Changes
+        run: git pull origin main
+
+      - name: Get Latest Version
+        run: echo "VERSION=$(jq -r '.version' package.json)" >> $GITHUB_ENV
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.11.0"
+
+      - name: Install Dependencies (Frontend)
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Run Build (Frontend)
+        working-directory: ./frontend
+        run: npm run build
+
+      - name: Install Dependencies (BackEnd)
+        working-directory: ./backend
+        run: npm install
+
+      - name: Run Tests (BackEnd)
+        working-directory: ./backend
+        run: npm test
+
+      - name: Make artifact
+        run: |
+          mkdir -p temp public
+          cp -r ./frontend/dist/* public
+          zip -r artifact.zip \
+            ./backend/src \
+            ./backend/package.json \
+            ./backend/package-lock.json \
+            ./public
+          mv artifact.zip ./temp
+          
+          ls -la
+          ls -la temp
+
+#      - name: Deploy to Remote Server
+#        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+#        with:
+#          server: ${{ secrets.FTP_SERVER }}
+#          username: ${{ secrets.FTP_USER }}
+#          password: ${{ secrets.FTP_PASSWORD }}
+#          local-dir: ./temp/
+#          server-dir: ./
+#          dangerous-clean-slate: true
