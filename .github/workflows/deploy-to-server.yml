@@ -1,33 +1,30 @@
 name: Deploy to Remote Server
 
 on:
-  push:
-    branches:
-      - test
-#  workflow_dispatch:
-#    inputs:
-#      code:
-#        description: "Secure Code"
-#        type: string
-#        required: true
+  workflow_dispatch:
+    inputs:
+      code:
+        description: "Secure Code"
+        type: string
+        required: true
 
 jobs:
   build:
     name: Build Artifact
     runs-on: ubuntu-latest
     steps:
-#      - name: Verify Secure Code
-#        run: |
-#          if [[ "${{ inputs.code }}" != "${{ secrets.SECURE_CODE }}" ]]; then
-#            echo "❌ Invalid Secure Code"
-#            exit 1
-#          fi
+      - name: Verify Secure Code
+        run: |
+          if [[ "${{ inputs.code }}" != "${{ secrets.SECURE_CODE }}" ]]; then
+            echo "❌ Invalid Secure Code"
+            exit 1
+          fi
 
       - name: Checkout repository
         uses: actions/checkout@v4
 
-#      - name: Get Latest Changes
-#        run: git pull origin main
+      - name: Get Latest Changes
+        run: git pull origin main
 
       - name: Get Latest Version
         run: echo "VERSION=$(jq -r '.version' package.json)" >> $GITHUB_ENV
