@@ -26,8 +26,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Get Latest Changes
-        run: git pull origin main
+#      - name: Get Latest Changes
+#        run: git pull origin main
 
       - name: Get Latest Version
         run: echo "VERSION=$(jq -r '.version' package.json)" >> $GITHUB_ENV
