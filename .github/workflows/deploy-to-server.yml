@@ -59,6 +59,7 @@ jobs:
           cp -r ./frontend/dist/* public
           cd backend
           zip -r ../artifact.zip src package.json package-lock.json ../public
+          cd ..
           mv artifact.zip ./temp
 
       - name: Upload Artifact
