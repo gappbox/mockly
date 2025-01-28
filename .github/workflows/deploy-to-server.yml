@@ -99,3 +99,10 @@ jobs:
           -H "Authorization: Bearer ${{ secrets.WEBHOOK_SECRET }}" \
           -H "Content-Type: application/json" \
           -d '{"command": "refreshNodeApp", "payload": {"target": "${{ secrets.TARGET }}"}}'
+
+      - name: Restart NodeApp
+        run: |
+          curl -s -i -X POST "${{ secrets.WEBHOOK }}" \
+          -H "Authorization: Bearer ${{ secrets.WEBHOOK_SECRET }}" \
+          -H "Content-Type: application/json" \
+          -d '{"command": "restartNodeApp", "payload": {"targetId": "${{ secrets.TARGET_ID }}"}}'
