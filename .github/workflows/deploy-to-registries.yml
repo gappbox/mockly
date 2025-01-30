@@ -79,3 +79,22 @@ jobs:
             docker.io/${{ secrets.DOCKER_HUB_USER }}/mockly:latest
             ghcr.io/${{ github.repository_owner }}/mockly:${{ env.VERSION }}
             ghcr.io/${{ github.repository_owner }}/mockly:latest
+
+  notification:
+    name: Send Notification
+    runs-on: ubuntu-latest
+    needs: docker
+    steps:
+      - name: Notify
+        run: |
+          response=$(curl -s -o response.json -w "%{http_code}" \
+            -X POST "${{ secrets.WEBHOOK }}" \
+            -H "Authorization: Bearer ${{ secrets.WEBHOOK_SECRET }}" \
+            -H "Content-Type: application/json" \
+            -d '{"command": "sendDeploymentNotification", "payload": {"project": "Mockly", "target": "Docker Hub", "status":"Success", "version": "${{ env.VERSION }}"}}')
+
+          if [ "$response" -ne 200 ]; then
+            echo "Error during Send Notification. Response code: $response"
+            cat response.json
+            exit 1
+          fi
