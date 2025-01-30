@@ -14,7 +14,7 @@ describe('security middleware', () => {
   test('should set the correct security headers', async () => {
     const response = await request(app).get('/');
 
-    expect(response.headers['cache-control']).toBe('no-store');
+    expect(response.headers['x-powered-by']).toBeUndefined();
     expect(response.headers['content-security-policy']).toBe("default-src 'self'; img-src 'self' data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';");
     expect(response.headers['cross-origin-embedder-policy']).toBe('require-corp');
     expect(response.headers['cross-origin-opener-policy']).toBe('same-origin');

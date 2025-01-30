@@ -1,5 +1,5 @@
-function securityMiddleware(_, res, next) {
-  res.setHeader('Cache-Control', 'no-store');
+const securityMiddleware = (_, res, next) => {
+  res.removeHeader('x-powered-by');
   res.setHeader('Content-Security-Policy', "default-src 'self'; img-src 'self' data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';");
   res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
   res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
@@ -13,6 +13,6 @@ function securityMiddleware(_, res, next) {
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
   res.setHeader('X-XSS-Protection', '1; mode=block');
   next();
-}
+};
 
 module.exports = securityMiddleware;

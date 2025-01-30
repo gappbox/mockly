@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-function getCategorySchema(categoryCodes) {
+const getCategorySchema = (categoryCodes) => {
   return Joi.object({
     category: Joi
       .string()
@@ -12,9 +12,9 @@ function getCategorySchema(categoryCodes) {
         'string.empty': 'Category parameter cannot be empty',
       }),
   });
-}
+};
 
-function getMockSchema(categoryCodes, typeCodes) {
+const getMockSchema = (categoryCodes, typeCodes) => {
   return Joi.object({
     count: Joi
       .number()
@@ -67,7 +67,7 @@ function getMockSchema(categoryCodes, typeCodes) {
         'any.required': `Items is required`,
       })
   });
-}
+};
 
 module.exports = {
   getCategorySchema,

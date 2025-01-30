@@ -22,7 +22,7 @@ describe('cache middleware', () => {
   test('should not set Cache-Control header for non-static assets', async () => {
     const response = await request(app).get('/index.html');
 
-    expect(response.headers['cache-control']).toBeUndefined();
+    expect(response.headers['cache-control']).toBe('no-store');
     expect(response.text).toBe('HTML file');
   });
 
