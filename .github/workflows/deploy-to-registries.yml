@@ -16,6 +16,8 @@ jobs:
   docker:
     name: Deploy to Registries
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
     steps:
       - name: Verify Secure Code
         run: |
@@ -31,7 +33,11 @@ jobs:
         run: git pull origin main
 
       - name: Get Latest Version
-        run: echo "VERSION=$(jq -r '.version' package.json)" >> $GITHUB_ENV
+        id: get_version
+        run: echo "version=$(jq -r '.version' package.json)" >> $GITHUB_ENV
+
+      - name: Export Version to Outputs
+        run: echo "version=${{ env.VERSION }}" >> $GITHUB_OUTPUT
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -91,7 +97,7 @@ jobs:
             -X POST "${{ secrets.WEBHOOK }}" \
             -H "Authorization: Bearer ${{ secrets.WEBHOOK_SECRET }}" \
             -H "Content-Type: application/json" \
-            -d '{"command": "sendDeploymentNotification", "payload": {"project": "Mockly", "target": "Docker Hub", "status":"Success", "version": "${{ env.VERSION }}"}}')
+            -d '{"command": "sendDeploymentNotification", "payload": {"project": "Mockly", "target": "Docker Hub", "status":"Success", "version": "${{ needs.docker.outputs.version }}"}}')
 
           if [ "$response" -ne 200 ]; then
             echo "Error during Send Notification. Response code: $response"
