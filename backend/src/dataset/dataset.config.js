@@ -8,6 +8,7 @@ const categories = [
   { id: '38927c6d-6654-40a7-be1c-7ae183097562', name: 'Datatype', code: 'datatype' },
   { id: 'd20a62f2-5f97-4ab1-9dbd-8e91e6daa639', name: 'Finance', code: 'finance' },
   { id: 'c5bf1238-ec08-4712-92f4-7b34f1ae204f', name: 'Food', code: 'food' },
+  { id: 'b0f438e3-c015-40e9-91f1-b7e4e07e49ab', name: 'Git', code: 'git' },
   { id: '77560723-996f-481a-a548-77e09faab907', name: 'Location', code: 'location' },
   { id: '068a8695-a77f-4749-9193-582458b11eeb', name: 'Person', code: 'person' },
   { id: '629da9fd-321e-47eb-8c6c-33f460a4d846', name: 'String', code: 'string' },
@@ -108,6 +109,13 @@ const types = {
     { id: 'fe13a49a-8b74-4859-8e92-f61c699dc205', name: 'Meat', code: 'meat' },
     { id: '1079c8e3-600b-4a0c-9379-11c6d0191313', name: 'Spice', code: 'spice' },
     { id: '0e9d34ee-1fbd-4312-a465-b113ba9d4dd1', name: 'Vegetable', code: 'vegetable' },
+  ],
+  git: [
+    { id: '2157c60a-fbd5-4cc2-a58f-8d3f5ea89a67', name: 'Branch', code: 'branch' },
+    { id: '145ac23d-845f-4a41-afe2-3eaf68dbfbc1', name: 'Commit Date', code: 'commitDate' },
+    { id: '1c608390-67cf-4aff-918b-e73f5eeb6065', name: 'Commit Entry', code: 'commitEntry' },
+    { id: '2b671ccd-337b-4485-9b9c-77f965dc988a', name: 'Commit Message', code: 'commitMessage' },
+    { id: '922c3267-f18f-496d-abfc-694166765fa6', name: 'Commit Sha', code: 'commitSha' },
   ],
   location: [
     { id: '7a0dadac-d189-4325-917c-51c8a5c3ac00', name: 'Building Number', code: 'buildingNumber' },
