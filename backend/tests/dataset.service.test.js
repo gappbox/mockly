@@ -24,7 +24,7 @@ describe('dataset service', () => {
 
   describe('getCategoryCodes', () => {
     test('should return an array length', () => {
-      expect(getCategoryCodes()).toHaveLength(10);
+      expect(getCategoryCodes()).toHaveLength(11);
     });
   });
 
@@ -44,7 +44,7 @@ describe('dataset service', () => {
 
   describe('getTypeCodes', () => {
     test('should return an array length', () => {
-      expect(getTypeCodes()).toHaveLength(89);
+      expect(getTypeCodes()).toHaveLength(107);
     });
   });
 
