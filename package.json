@@ -3,7 +3,7 @@
   "author": "Ievgen Golovachov <ievgen.golovachov@codify.co.ua>",
   "description": "Easily generate and manage mock data for testing and development",
   "private": true,
-  "version": "1.0.4",
+  "version": "1.1.0",
   "scripts": {
     "install:all": "npm run install:backend && npm run install:frontend",
     "install:backend": "cd backend && npm install",
