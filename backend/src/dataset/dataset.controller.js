@@ -19,7 +19,7 @@ const {
  * @param {import('express').Request} req - Express request object.
  * @param {import('express').Response} res - Express response object.
  */
-function loadCategories(req, res) {
+const loadCategories = (req, res) => {
   const categories = getCategories();
   const responder = createResponder(req, res);
 
@@ -35,7 +35,7 @@ function loadCategories(req, res) {
  * @param {import('express').Request} req - Express request object.
  * @param {import('express').Response} res - Express response object.
  */
-function loadTypes(req, res) {
+const loadTypes = (req, res) => {
   const category = req.params.category;
   const categoryCodes = getCategoryCodes();
   const categorySchema = getCategorySchema(categoryCodes);
@@ -52,7 +52,7 @@ function loadTypes(req, res) {
   const types = getTypes(category);
 
   return responder.success(200, types);
-}
+};
 
 /**
  * Generates mock data based on the provided items and count.
@@ -62,7 +62,7 @@ function loadTypes(req, res) {
  * @param {import('express').Request} req - Express request object.
  * @param {import('express').Response} res - Express response object.
  */
-function createMocks(req, res) {
+const createMocks = (req, res) => {
   const categoryCodes = getCategoryCodes();
   const typeCodes = getTypeCodes();
   const mockSchema = getMockSchema(categoryCodes, typeCodes);
@@ -82,7 +82,7 @@ function createMocks(req, res) {
   );
 
   return responder.success(200, mockData);
-}
+};
 
 module.exports = {
   createMocks,
