@@ -9,6 +9,7 @@ const categories = [
   { id: 'd20a62f2-5f97-4ab1-9dbd-8e91e6daa639', name: 'Finance', code: 'finance' },
   { id: 'c5bf1238-ec08-4712-92f4-7b34f1ae204f', name: 'Food', code: 'food' },
   { id: 'b0f438e3-c015-40e9-91f1-b7e4e07e49ab', name: 'Git', code: 'git' },
+  { id: 'd39c32e1-3e91-4d80-9a6c-71fb85292315', name: 'Hacker', code: 'hacker' },
   { id: '77560723-996f-481a-a548-77e09faab907', name: 'Location', code: 'location' },
   { id: '068a8695-a77f-4749-9193-582458b11eeb', name: 'Person', code: 'person' },
   { id: '629da9fd-321e-47eb-8c6c-33f460a4d846', name: 'String', code: 'string' },
@@ -116,6 +117,14 @@ const types = {
     { id: '1c608390-67cf-4aff-918b-e73f5eeb6065', name: 'Commit Entry', code: 'commitEntry' },
     { id: '2b671ccd-337b-4485-9b9c-77f965dc988a', name: 'Commit Message', code: 'commitMessage' },
     { id: '922c3267-f18f-496d-abfc-694166765fa6', name: 'Commit Sha', code: 'commitSha' },
+  ],
+  hacker: [
+    { id: '18f858da-939f-45a1-8440-3020e5fb4894', name: 'Abbreviation', code: 'abbreviation' },
+    { id: '9dc09ba6-d102-4b0f-b094-afce942e93a0', name: 'Adjective', code: 'adjective' },
+    { id: '42823d5b-6283-48f6-bb8d-6af08dbca187', name: 'Ingverb', code: 'ingverb' },
+    { id: 'f70bef4d-ef68-4cf5-af06-dff730cea0ff', name: 'Noun', code: 'noun' },
+    { id: '51f23065-8ef2-4717-89b0-2bd44f9c7b87', name: 'Phrase', code: 'phrase' },
+    { id: '6a82c01c-2720-4cbf-91e5-aa04ae5da5a0', name: 'Verb', code: 'verb' },
   ],
   location: [
     { id: '7a0dadac-d189-4325-917c-51c8a5c3ac00', name: 'Building Number', code: 'buildingNumber' },
