@@ -13,7 +13,7 @@ jobs:
     name: Build Artifact
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.get_version.outputs.version }}
+      version: ${{ steps.set_version.outputs.version }}
     steps:
       - name: Verify Secure Code
         run: |
@@ -29,11 +29,8 @@ jobs:
         run: git pull origin main
 
       - name: Get Latest Version
-        id: get_version
-        run: echo "version=$(jq -r '.version' package.json)" >> $GITHUB_ENV
-
-      - name: Export Version to Outputs
-        run: echo "version=${{ env.VERSION }}" >> $GITHUB_OUTPUT
+        id: set_version
+        run: echo "version=$(jq -r '.version' package.json)" >> $GITHUB_OUTPUT
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
