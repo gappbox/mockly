@@ -8,6 +8,7 @@ describe('dataset config', () => {
         const value = faker[category][item.code]();
         const equal = typeof value === 'string'
           || typeof value === 'number'
+          || typeof value === 'bigint'
           || typeof value === 'boolean';
 
         expect(equal).toBeTruthy();
