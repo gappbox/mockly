@@ -1,4 +1,5 @@
 export * from './category';
 export * from './field';
-export * from './type';
 export * from './responseError';
+export * from './template';
+export * from './type';

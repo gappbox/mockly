@@ -11,6 +11,7 @@ Mockly is an easy-to-use tool for generating and managing synthetic (mock) data.
 ## Key Features:
 
 - **Custom Fields:** Define data fields with categories and types that fit your needs.
+- **Field Templates:** Use pre-configured templates to quickly apply common field configurations and save time.
 - **Mock Data Generation:** Generate structured JSON data that looks realistic.
 - **Adjustable Output:** Set the exact number of records to generate.
 - **Export Options:** Easily export the data for use in other tools or applications.
@@ -23,8 +24,7 @@ Mockly can be easily self-hosted using Docker. A pre-built Docker image is avail
 
 ### Prerequisites
 
-Ensure you have Docker installed on your machine:
-- [Docker](https://docs.docker.com/get-docker/) (v20.10+)
+Ensure you have Docker installed on your machine
 
 ### Steps to Self-Host:
 

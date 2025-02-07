@@ -1,20 +1,15 @@
 import { ReactNode, useEffect, useState } from 'react';
-import Button from 'rsuite/Button';
-import HStack from 'rsuite/HStack';
 import Panel from 'rsuite/Panel';
-import SelectPicker from 'rsuite/SelectPicker';
 import StackItem from 'rsuite/StackItem';
 import VStack from 'rsuite/VStack';
+import DataPreview from './DataPreview';
+import DataPreviewActions from './DataPreviewActions';
 import DataViewPanel from './DataViewPanel';
-import useMediaQuery from 'rsuite/useMediaQuery';
-import { useClipboard, useDownload, useDynamicHeight, useMockDataGenerator } from '../../data/hooks';
-import { useRootStore } from '../../data/store';
-import { createCounts } from '../../data/utils/createCounts';
 import { createJson } from '../../data/utils/createJson';
+import { useClipboard, useDownload, useMockDataGenerator } from '../../data/hooks';
+import { useRootStore } from '../../data/store';
 
 const DataView = (): ReactNode => {
-  const {containerRef, height} = useDynamicHeight();
-  const [mobile] = useMediaQuery('(max-width: 767px)');
   const [selectedCount, setSelectedCount] = useState(100);
   const {download} = useDownload();
   const {writeText} = useClipboard();
@@ -32,44 +27,21 @@ const DataView = (): ReactNode => {
     <Panel>
       <VStack alignItems="stretch" spacing={20}>
         <StackItem>
-          <DataViewPanel
-            onCopy={() => writeText(json)}
-            onDownload={() => json && download(json)}
+          <DataViewPanel onCopy={() => writeText(json)} onDownload={() => json && download(json)} />
+        </StackItem>
+
+        <StackItem>
+          <DataPreviewActions
+            count={selectedCount}
+            fields={fields}
+            loading={loading}
+            onChangeCount={setSelectedCount}
+            onGenerateData={generateData}
           />
         </StackItem>
 
         <StackItem>
-          <HStack spacing={16}>
-            <Button
-              appearance="primary"
-              loading={loading}
-              onClick={() => fields.length && generateData(fields, selectedCount)}
-            >
-              Generate
-            </Button>
-
-            <SelectPicker
-              cleanable={false}
-              data={createCounts()}
-              label="Count"
-              menuMaxHeight={140}
-              searchable={false}
-              style={{ width: 'auto' }}
-              value={selectedCount}
-              onChange={(value) => setSelectedCount(value!)}
-            />
-          </HStack>
-        </StackItem>
-
-        <StackItem>
-          <Panel
-            className="rs-code"
-            bordered
-            ref={containerRef}
-            style={{ overflow: 'auto', height: mobile ? 'auto' : height, width: '100%' }}
-          >
-            <pre>{data ? json : ''}</pre>
-          </Panel>
+          <DataPreview json={json} />
         </StackItem>
       </VStack>
     </Panel>

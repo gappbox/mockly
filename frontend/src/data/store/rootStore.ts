@@ -1,18 +1,22 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { createSelectors } from '../utils/createSelectors';
-import { Category, Field, Type } from '../models';
+import { templates } from '../constants';
+import { Category, Field, Template, Type } from '../models';
 
 type State = {
   categories: Category[];
   fields: Field[];
+  templates: Template[];
   types: Record<string, Type[]>;
 };
 
 type Action = {
   appendField: (field: Field) => void;
   removeField: (field: Field) => void;
+  removeFields: () => void;
   setCategories: (categories: Category[]) => void;
+  setFields: (fields: Field[]) => void;
   setTypesForCategory: (category: string, types: Type[]) => void;
   updateField: (field: Field) => void;
   moveFieldUp: (id: string) => void;
@@ -22,6 +26,7 @@ type Action = {
 const useRootStoreBase = create<State & Action>()(devtools((set) => ({
   categories: [],
   fields: [],
+  templates,
   types: {},
 
   appendField: (field) => set((state) => ({
@@ -32,8 +37,16 @@ const useRootStoreBase = create<State & Action>()(devtools((set) => ({
     fields: state.fields.filter(({ id }) => id !== field.id),
   })),
 
+  removeFields: () => set(() => ({
+    fields: []
+  })),
+
   setCategories: (categories) => set(() => ({
     categories,
+  })),
+
+  setFields: (fields) => set(() => ({
+    fields,
   })),
 
   setTypesForCategory: (category, types) => set((state) => ({
