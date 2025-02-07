@@ -5,7 +5,7 @@ import FieldsViewPanel from './FieldsViewPanel';
 import NiceModal from '@ebay/nice-modal-react';
 import Panel from 'rsuite/Panel';
 import StackItem from 'rsuite/StackItem';
-import TemplatesModal from '../TemplatesView/TemplatesModal.tsx';
+import TemplatesModal from '../TemplatesView/TemplatesModal';
 import VStack from 'rsuite/VStack';
 import { useRootStore } from '../../data/store';
 

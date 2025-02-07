@@ -12,7 +12,7 @@ import NorthIcon from '../../components/Icons/North';
 import SouthIcon from '../../components/Icons/South';
 import { Field } from '../../data/models';
 
-type FieldsTableActionCellProps = {
+type FieldsTableDropdownMenuProps = {
   field: Field;
   fields: Field[];
   onDeleteField: (field: Field) => void;
@@ -21,14 +21,14 @@ type FieldsTableActionCellProps = {
   onMoveFieldDown: (id: string) => void;
 };
 
-const FieldsTableActionCell = ({
+const FieldsTableDropdownMenu = ({
   field,
   fields,
   onDeleteField,
   onEditField,
   onMoveFieldUp,
   onMoveFieldDown,
-}: FieldsTableActionCellProps): ReactNode => {
+}: FieldsTableDropdownMenuProps): ReactNode => {
   return (
     <Whisper
       placement="autoVerticalEnd"
@@ -88,4 +88,4 @@ const FieldsTableActionCell = ({
   );
 };
 
-export default FieldsTableActionCell;
+export default FieldsTableDropdownMenu;

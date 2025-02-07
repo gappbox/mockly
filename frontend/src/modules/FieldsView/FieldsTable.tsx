@@ -3,7 +3,7 @@ import Table from 'rsuite/Table';
 import TableCell from 'rsuite/TableCell';
 import TableColumn from 'rsuite/TableColumn';
 import TableHeaderCell from 'rsuite/TableHeaderCell';
-import FieldsTableActionCell from './FieldsTableActionCell.tsx';
+import FieldsTableDropdownMenu from './FieldsTableDropdownMenu';
 import useMediaQuery from 'rsuite/useMediaQuery';
 import { useDynamicHeight } from '../../data/hooks';
 import { Field } from '../../data/models';
@@ -78,7 +78,7 @@ const FieldsTable = ({
           <TableHeaderCell>Actions</TableHeaderCell>
           <TableCell dataKey="id" style={{ padding: 0 }}>
             {(rowData) => (
-              <FieldsTableActionCell
+              <FieldsTableDropdownMenu
                 fields={fields}
                 field={rowData as Field}
                 onDeleteField={onDeleteField}
