@@ -94,6 +94,11 @@
   margin: 0 6px 0 0;
 }
 
+.rs-popover {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
+  filter: none;
+}
+
 pre {
   font-size: 13px;
   margin: 0;
