@@ -40,10 +40,14 @@ const FieldModal = NiceModal.create(({ field }: { field: Field | null }) => {
     loadCategories,
     loadTypeForCategory,
   } = useEntities();
-  const [selectedCategory, setSelectedCategory] = useState(field?.category ?? '');
+  const [selectedCategory, setSelectedCategory] = useState(defaultValues?.category ?? '');
   const modal = useModal();
 
   useEffect(() => {
+    if (defaultValues.category) {
+      loadTypeForCategory(defaultValues.category);
+    }
+
     loadCategories();
   }, []);
 

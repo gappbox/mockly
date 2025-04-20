@@ -6,19 +6,48 @@ import DataPreview from './DataPreview';
 import DataPreviewActions from './DataPreviewActions';
 import DataViewPanel from './DataViewPanel';
 import { createJson } from '../../data/utils/createJson';
-import { useClipboard, useDownload, useMockDataGenerator } from '../../data/hooks';
+import { useClipboard, useDownload, useMockDataGenerator, useNotification } from '../../data/hooks';
 import { useRootStore } from '../../data/store';
+import { Field } from '../../data/models';
 
 const DataView = (): ReactNode => {
   const [selectedCount, setSelectedCount] = useState(100);
   const {download} = useDownload();
   const {writeText} = useClipboard();
   const {data, loading, generateData, clearData} = useMockDataGenerator();
+  const notify = useNotification();
   const json = data ? createJson(data) : '';
   const fields = useRootStore.use.fields();
 
+  const downloadJson = (): void => {
+    if (!json) {
+      notify.error('No data to download. Please generate data first');
+      return;
+    }
+
+    download(json);
+  };
+
+  const copyJson = async (): Promise<void> => {
+    if (!json) {
+      notify.error('No data to copy. Please generate data first');
+      return;
+    }
+
+    await writeText(json);
+  }
+
+  const generateJson = (fields: Field[], count: number): void => {
+    if (!fields.length) {
+      notify.error('No fields defined. Please create at least one field first');
+      return;
+    }
+
+    generateData(fields, count);
+  };
+
   useEffect(() => {
-    if (fields.length === 0) {
+    if (!fields.length) {
       clearData();
     }
   }, [fields]);
@@ -27,7 +56,10 @@ const DataView = (): ReactNode => {
     <Panel>
       <VStack alignItems="stretch" spacing={20}>
         <StackItem>
-          <DataViewPanel onCopy={() => writeText(json)} onDownload={() => json && download(json)} />
+          <DataViewPanel
+            onCopy={copyJson}
+            onDownload={downloadJson}
+          />
         </StackItem>
 
         <StackItem>
@@ -36,7 +68,7 @@ const DataView = (): ReactNode => {
             fields={fields}
             loading={loading}
             onChangeCount={setSelectedCount}
-            onGenerateData={generateData}
+            onGenerateData={generateJson}
           />
         </StackItem>
 
