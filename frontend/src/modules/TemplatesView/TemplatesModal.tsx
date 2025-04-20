@@ -22,7 +22,7 @@ const TemplatesModal = NiceModal.create(() => {
   return (
     <Modal
       backdrop="static"
-      size="sm"
+      size="md"
       open={modal.visible}
       onClose={modal.hide}
       onExited={modal.remove}

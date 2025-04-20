@@ -5,17 +5,12 @@ import './styles/variables.css';
 import './styles/main.css';
 import './styles/custom.css';
 import { createRoot } from 'react-dom/client';
-import { CustomProvider } from 'rsuite';
-import { NotificationProvider } from './components/Notification';
-import NiceModal from '@ebay/nice-modal-react';
 import App from './App.tsx';
 
-createRoot(document.getElementById('root')!).render(
-  <CustomProvider theme="dark">
-    <NotificationProvider>
-      <NiceModal.Provider>
-        <App />
-      </NiceModal.Provider>
-    </NotificationProvider>
-  </CustomProvider>
-);
+const root = document.getElementById('root');
+
+if (!root) {
+  throw new Error('No found root element');
+}
+
+createRoot(root).render(<App />);

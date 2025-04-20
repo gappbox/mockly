@@ -8,12 +8,12 @@ const Logo = (): ReactNode => {
     <HStack spacing={16}>
       <StorageIcon className="rs-logo-svg" style={{ fontSize: '1.125rem' }} />
       <Text
-        as="span"
+        as="strong"
         className="rs-logo"
         size="lg"
         style={{ letterSpacing: '0.3em' }}
         transform="uppercase"
-        weight="semibold"
+        weight="bold"
       >
         Mockly
       </Text>

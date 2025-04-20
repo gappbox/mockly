@@ -25,7 +25,7 @@ const DataPreviewActions = ({
       <Button
         appearance="primary"
         loading={loading}
-        onClick={() => fields.length && onGenerateData(fields, count)}
+        onClick={() => onGenerateData(fields, count)}
       >
         Generate
       </Button>
