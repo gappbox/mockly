@@ -51,7 +51,7 @@ const TemplatesModal = NiceModal.create(() => {
             style={{ width: 250 }}
             value={templateId}
             valueKey="id"
-            onSel ect={(value: string) => setTemplateId(value)}
+            onSelect={(value: string) => setTemplateId(value)}
           />
 
           {ready
