@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import Button from 'rsuite/Button';
+import Loader from 'rsuite/Loader';
 import Modal from 'rsuite/Modal';
 import ModalBody from 'rsuite/ModalBody';
 import ModalFooter from 'rsuite/ModalFooter';
@@ -13,11 +14,16 @@ import TemplatesTable from './TemplatesTable.tsx';
 import { useRootStore } from '../../data/store';
 
 const TemplatesModal = NiceModal.create(() => {
+  const [ready, setReady] = useState(false);
   const modal = useModal();
   const setFields =  useRootStore.use.setFields();
   const templates = useRootStore.use.templates();
   const [templateId, setTemplateId] = useState<string>(templates[0].id);
   const template = templates.find(({ id }) => id === templateId) ?? templates[0];
+
+  useEffect(() => {
+    setTimeout(() => setReady(true), 500);
+  }, []);
 
   return (
     <Modal
@@ -48,7 +54,10 @@ const TemplatesModal = NiceModal.create(() => {
             onSelect={(value: string) => setTemplateId(value)}
           />
 
-          <TemplatesTable fields={template.fields} />
+          {ready
+            ? <TemplatesTable fields={template.fields} />
+            : <Loader size="sm" content="Loading..." />
+          }
         </VStack>
       </ModalBody>
 
