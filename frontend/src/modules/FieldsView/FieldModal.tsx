@@ -1,9 +1,12 @@
 import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import Button from 'rsuite/Button';
+import Card from 'rsuite/Card';
+import CardBody from 'rsuite/CardBody';
 import Form from 'rsuite/Form';
 import FormControlLabel from 'rsuite/FormControlLabel';
 import FormGroup from 'rsuite/FormGroup';
 import HStack from 'rsuite/HStack';
+import IconButton from 'rsuite/IconButton';
 import Input from 'rsuite/Input';
 import InputPicker from 'rsuite/InputPicker';
 import Modal from 'rsuite/Modal';
@@ -11,7 +14,9 @@ import ModalBody from 'rsuite/ModalBody';
 import ModalFooter from 'rsuite/ModalFooter';
 import ModalHeader from 'rsuite/ModalHeader';
 import ModalTitle from 'rsuite/ModalTitle';
+import ReloadIcon from '@rsuite/icons/Reload';
 import Text from 'rsuite/Text';
+import VStack from 'rsuite/VStack';
 import ErrorMessage from '../../components/ErrorMessage';
 import { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
@@ -27,18 +32,24 @@ const FieldModal = NiceModal.create(({ field }: { field: Field | null }) => {
   };
   const {
     control,
+    watch,
+    getValues,
     setValue,
     handleSubmit,
   } = useForm({ defaultValues });
   const {
+    appendField,
+    categories,
+    example,
+    generateMockData,
+    generating,
+    loadCategories,
     loadingCategories,
     loadingTypes,
-    types,
-    categories,
-    appendField,
-    updateField,
-    loadCategories,
     loadTypeForCategory,
+    setExample,
+    types,
+    updateField,
   } = useEntities();
   const [selectedCategory, setSelectedCategory] = useState(defaultValues?.category ?? '');
   const modal = useModal();
@@ -46,6 +57,10 @@ const FieldModal = NiceModal.create(({ field }: { field: Field | null }) => {
   useEffect(() => {
     if (defaultValues.category) {
       loadTypeForCategory(defaultValues.category);
+    }
+
+    if (defaultValues.category && defaultValues.type) {
+      generateMockData(defaultValues.category, defaultValues.type);
     }
 
     loadCategories();
@@ -127,6 +142,7 @@ const FieldModal = NiceModal.create(({ field }: { field: Field | null }) => {
                         field.onChange(value);
                         setValue('type', '');
                         setSelectedCategory(value);
+                        setExample('n/a');
                         loadTypeForCategory(value);
                       }}
                     />
@@ -157,13 +173,38 @@ const FieldModal = NiceModal.create(({ field }: { field: Field | null }) => {
                       value={field.value}
                       valueKey="code"
                       onKeyDown={(event) => event.key === 'Enter' ? event.preventDefault() : ''}
-                      onChange={(value: string) => field.onChange(value)}
+                      onChange={async (value: string) => {
+                        field.onChange(value);
+                        await generateMockData(selectedCategory, value);
+                      }}
                     />
                   </ErrorMessage>
                 )}
               />
             </FormGroup>
           </HStack>
+
+          <VStack spacing={8}>
+            <HStack
+              alignItems="flex-end"
+              justifyContent="space-between"
+              spacing={8}
+              style={{ width: '100%' }}
+            >
+              <Text muted>Example:</Text>
+              <IconButton
+                appearance="subtle"
+                disabled={!(watch('category') && watch('type'))}
+                icon={<ReloadIcon />}
+                loading={generating}
+                onClick={() => generateMockData(getValues().category, getValues().type)}
+              />
+            </HStack>
+
+            <Card size="sm">
+              <CardBody style={{ 'wordWrap': 'break-word' }}>{JSON.stringify(example)}</CardBody>
+            </Card>
+          </VStack>
         </ModalBody>
 
         <ModalFooter>

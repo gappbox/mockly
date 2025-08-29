@@ -1,5 +1,6 @@
 const createResponder = require('../utils/responder.util');
 const {
+  generateSingleData,
   generateMockData,
   getCategories,
   getCategoryCodes,
@@ -84,8 +85,20 @@ const createMocks = (req, res) => {
   return responder.success(200, mockData);
 };
 
+const createMock = (req, res) => {
+  const responder = createResponder(req, res);
+
+  const mockData = generateSingleData(
+    req.body.category,
+    req.body.type,
+  );
+
+  return responder.success(200, mockData);
+};
+
 module.exports = {
   createMocks,
+  createMock,
   loadCategories,
   loadTypes,
 };

@@ -6,12 +6,9 @@ describe('dataset config', () => {
     Object.keys(types).forEach((category) => {
       types[category].forEach((item) => {
         const value = faker[category][item.code]();
-        const equal = typeof value === 'string'
-          || typeof value === 'number'
-          || typeof value === 'bigint'
-          || typeof value === 'boolean';
 
-        expect(equal).toBeTruthy();
+        expect(value).toBeDefined();
+        expect(value).not.toBeNull();
       });
     });
   });

@@ -1,4 +1,5 @@
 const categories = [
+  { id: 'd21d1301-1e38-4fab-aee8-1ddc501879c9', name: 'Airline', code: 'airline' },
   { id: '37455483-8bbe-4f75-b7fb-25100fba7455', name: 'Animal', code: 'animal' },
   { id: 'a0d85391-9a20-4cdf-8d32-c79b361fa9ea', name: 'Book', code: 'book' },
   { id: '67f90258-2a09-4388-889b-5117485a3ddf', name: 'Color', code: 'color' },
@@ -6,10 +7,12 @@ const categories = [
   { id: 'b3251e69-8912-4fa0-bcc4-93c0cea31c7b', name: 'Company', code: 'company' },
   { id: 'f974ecfe-6483-47ab-aabd-26fe5be06f50', name: 'Database', code: 'database' },
   { id: '38927c6d-6654-40a7-be1c-7ae183097562', name: 'Datatype', code: 'datatype' },
+  { id: 'cc6008d0-6f10-48d2-81de-caf99494fb13', name: 'Date', code: 'date' },
   { id: 'd20a62f2-5f97-4ab1-9dbd-8e91e6daa639', name: 'Finance', code: 'finance' },
   { id: 'c5bf1238-ec08-4712-92f4-7b34f1ae204f', name: 'Food', code: 'food' },
   { id: 'b0f438e3-c015-40e9-91f1-b7e4e07e49ab', name: 'Git', code: 'git' },
   { id: 'd39c32e1-3e91-4d80-9a6c-71fb85292315', name: 'Hacker', code: 'hacker' },
+  { id: 'ead8f693-a207-4388-9d44-6441734c84ff', name: 'Image', code: 'image' },
   { id: '5bf6dba4-c07e-4346-8c61-dd585427c43f', name: 'Internet', code: 'internet'},
   { id: '77560723-996f-481a-a548-77e09faab907', name: 'Location', code: 'location' },
   { id: '1c060d0d-0fd9-421f-991a-06cc61dc5daa', name: 'Lorem', code: 'lorem' },
@@ -24,13 +27,11 @@ const categories = [
 ];
 
 const types = {
-  book: [
-    { id: '9fa03476-ef8e-49eb-9be5-cd3e0bc09532', name: 'Author', code: 'author' },
-    { id: 'a84ee7e6-ed42-42d8-b7e2-d545de490646', name: 'Format', code: 'format' },
-    { id: 'db5ae5d2-c000-4a82-b7cb-9b050684918a', name: 'Genre', code: 'genre' },
-    { id: '0810cdfb-7dbe-42cd-9128-57e3ff98da15', name: 'Publisher', code: 'publisher' },
-    { id: '84c403e2-94f2-46c4-9cf4-50b5c89b2596', name: 'Series', code: 'series' },
-    { id: 'e98a6470-942f-4224-a7ad-cdebc0876248', name: 'Title', code: 'title' },
+  airline: [
+    { id: '51914275-d220-4772-a58b-bcf96154387f', name: 'Aircraft Type', code: 'aircraftType' },
+    { id: 'a2488cd8-24a4-4cfd-a435-520fc603981d', name: 'Flight Number', code: 'flightNumber' },
+    { id: '3193fb7f-dce8-4e98-982f-7654c022f3c2', name: 'Record Locator', code: 'recordLocator' },
+    { id: '74572cb8-091f-4ccf-8d28-c0ab3b40c1f1', name: 'Seat', code: 'seat' },
   ],
   animal: [
     { id: 'c356a776-2155-44d0-83be-ac5ca87d3a8b', name: 'Bear', code: 'bear' },
@@ -49,6 +50,14 @@ const types = {
     { id: '2def0c91-7311-482e-a955-4fde423f5194', name: 'Rodent', code: 'rodent' },
     { id: '80f35458-8131-42b5-a66d-ab899c67087e', name: 'Snake', code: 'snake' },
     { id: '2b4efe66-4f70-4e66-8216-1a61771c3eda', name: 'Type', code: 'type' },
+  ],
+  book: [
+    { id: '9fa03476-ef8e-49eb-9be5-cd3e0bc09532', name: 'Author', code: 'author' },
+    { id: 'a84ee7e6-ed42-42d8-b7e2-d545de490646', name: 'Format', code: 'format' },
+    { id: 'db5ae5d2-c000-4a82-b7cb-9b050684918a', name: 'Genre', code: 'genre' },
+    { id: '0810cdfb-7dbe-42cd-9128-57e3ff98da15', name: 'Publisher', code: 'publisher' },
+    { id: '84c403e2-94f2-46c4-9cf4-50b5c89b2596', name: 'Series', code: 'series' },
+    { id: 'e98a6470-942f-4224-a7ad-cdebc0876248', name: 'Title', code: 'title' },
   ],
   color: [
     { id: 'd9f4be5f-7b66-4a30-a9c5-f039adb69065', name: 'CSS Supported Function', code: 'cssSupportedFunction' },
@@ -88,6 +97,17 @@ const types = {
   datatype: [
     { id: 'c698d1dc-4010-4ea6-b7ef-7d305fe7451f', name: 'Boolean', code: 'boolean' },
   ],
+  date: [
+    { id: '5b4255d4-10b0-4692-9bba-1bb5d6d5146b', name: 'Anytime', code: 'anytime' },
+    { id: 'e0050503-601d-4ac4-ae3c-74dce2c605a1', name: 'Birthdate', code: 'birthdate' },
+    { id: '8f8acc6d-c2a4-4890-bfba-77d6a28af4ae', name: 'Future', code: 'future' },
+    { id: 'e89e4f26-4093-459e-a192-eac8d3d6705a', name: 'Month', code: 'month' },
+    { id: '49467a03-4878-44ff-a93f-6820bc4d3530', name: 'Past', code: 'past' },
+    { id: '5a94d868-de4d-4dc1-92e4-039e8ce2cef5', name: 'Recent', code: 'recent' },
+    { id: '39b0567a-cc07-4398-b714-3a2659d34d86', name: 'Soon', code: 'soon' },
+    { id: 'e76462ca-8c5d-4b50-8adb-27f4726f303b', name: 'TimeZone', code: 'timeZone' },
+    { id: '79b5e646-1bc2-4e31-9a3f-1e6520fd71b5', name: 'Weekday', code: 'weekday' },
+  ],
   finance: [
     { id: '28000a6e-e153-497b-ad7a-b64b6e5e8e9a', name: 'Account Name', code: 'accountName' },
     { id: '9fee4c36-4194-459f-81f8-330f7b88e4a9', name: 'Account Number', code: 'accountNumber' },
@@ -103,6 +123,7 @@ const types = {
     { id: 'b9f88d35-56e7-446e-b213-2eccec83b38a', name: 'Ethereum Address', code: 'ethereumAddress' },
     { id: 'da7c16cb-1c84-45f9-ad0c-24c64d52cef2', name: 'Iban', code: 'iban' },
     { id: 'ccf0b256-f81a-4147-8285-2d303b419cae', name: 'Litecoin Address', code: 'litecoinAddress' },
+    { id: '27c25bd1-f2cc-4256-a731-a978ff1ceef8', name: 'Masked Number', code: 'maskedNumber' },
     { id: '0a863873-d9c8-4f13-9e32-7088255b6313', name: 'Pin', code: 'pin' },
     { id: 'fc16748d-276f-4413-9c1f-1e17d3a924ea', name: 'Routing Number', code: 'routingNumber' },
     { id: '2f1ce444-f49d-4fba-8d62-144b16904cd5', name: 'Transaction Description', code: 'transactionDescription' },
@@ -133,6 +154,16 @@ const types = {
     { id: 'f70bef4d-ef68-4cf5-af06-dff730cea0ff', name: 'Noun', code: 'noun' },
     { id: '51f23065-8ef2-4717-89b0-2bd44f9c7b87', name: 'Phrase', code: 'phrase' },
     { id: '6a82c01c-2720-4cbf-91e5-aa04ae5da5a0', name: 'Verb', code: 'verb' },
+  ],
+  image: [
+    { id: '5d1899dc-2c73-4c6a-aca9-5bf6f4c0fade', name: 'Avatar', code: 'avatar' },
+    { id: 'c10cac2e-83ee-437a-9f0d-5640c03cd501', name: 'Avatar GitHub', code: 'avatarGitHub' },
+    { id: 'f6656d19-59d1-4e0c-8935-1d75ebf6a561', name: 'Avatar Legacy', code: 'avatarLegacy' },
+    { id: '72e1bc9b-5414-41b9-9c26-48487dd2831a', name: 'Data Uri', code: 'dataUri' },
+    { id: '5611c746-88ac-4507-918d-2c6c71a37cee', name: 'Url', code: 'url' },
+    { id: 'b3ada3bf-dfc2-4f8f-a398-dc0cbae96246', name: 'UrlLoremFlickr', code: 'urlLoremFlickr' },
+    { id: 'e84f1f0b-8cc0-4a40-b1ff-d5629ecafcdb', name: 'Url Picsum Photos', code: 'urlPicsumPhotos' },
+    { id: 'ed396b61-542d-4c2d-8a78-89c417f0ce4f', name: 'Url Placeholder', code: 'urlPlaceholder' },
   ],
   internet: [
     { id: "3abd30e5-c8ba-4d2e-95e8-c315ef6e9203", name: "Color", code: "color" },
@@ -193,13 +224,11 @@ const types = {
     { id: "6174f93e-6000-48c0-a7cd-365260d01c03", name: "Song Name", code: "songName" }
   ],
   number: [
-    { id: "7af83726-a030-4785-afa0-d9c1c18e00c9", name: "BigInt", code: "bigInt" },
     { id: "b48c7c2d-d238-466d-8b90-5d1beb2e3899", name: "Binary", code: "binary" },
     { id: "c7939c9e-e9d4-47c2-a4a1-4fc3635f78ae", name: "Float", code: "float" },
     { id: "7a6d14b1-a98f-4df7-9beb-60635a33fabe", name: "Hex", code: "hex" },
     { id: "a64c3bd8-f523-4f02-ab7c-147aefed27b0", name: "Int", code: "int" },
     { id: "009ac8c2-309f-482a-8a0e-f3f1922b13b4", name: "Octal", code: "octal" },
-    { id: "518c0d81-c924-44ff-bad3-7d5a3a530a99", name: "Roman Numeral", code: "romanNumeral" },
   ],
   person: [
     { id: '6303d9cb-7819-4f1c-8fa3-01f1555f444f', name: 'Biography', code: 'bio' },
@@ -222,6 +251,8 @@ const types = {
     { id: "03441b2f-1ed3-40e6-a53e-0153ddbba81e", name: "Number", code: "number" },
   ],
   string: [
+    { id: '87ecfd48-2b7a-4fc8-a14e-0b2b60edbe07', name: 'Alpha', code: 'alpha' },
+    { id: '39e4283d-b9a6-4c3e-ad63-87be5310e6ed', name: 'Alphanumeric', code: 'alphanumeric' },
     { id: 'b6a31a32-a538-47c8-9543-8970016752f5', name: 'Binary', code: 'binary' },
     { id: '4dc0b734-b7af-4dda-81f1-84e348fae879', name: 'Hexadecimal', code: 'hexadecimal' },
     { id: '480c7b1d-6da0-4f67-8f0f-7cba2410208a', name: 'Nanoid', code: 'nanoid' },

@@ -18,3 +18,11 @@ export const generateMockData = async (items: Field[], count = 100): Promise<any
     method: 'POST',
   });
 };
+
+export const generateSingleMockData = async (category: string, type: string): Promise<any> => {
+  return httpRequest(`${baseURL}/api/data`, {
+    body: JSON.stringify({ category, type }),
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
+  });
+};
