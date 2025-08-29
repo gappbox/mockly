@@ -85,9 +85,24 @@ const generateMockData = (items, count) => {
   });
 };
 
+/**
+ * Generates a single mock data base on the specified category and type.
+ * @param category - A category of field definition
+ * @param type - A type of category definition
+ * @returns {string|number|boolean} A single mock data
+ */
+const generateSingleData = (category, type) => {
+  if (!faker?.[category]?.[type]) {
+    return 'Something went wrong';
+  }
+
+  return faker[category][type]();
+};
+
 module.exports = {
   createObject,
   generateMockData,
+  generateSingleData,
   getCategories,
   getCategoryCodes,
   getOptions,

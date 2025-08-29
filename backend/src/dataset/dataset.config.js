@@ -193,7 +193,6 @@ const types = {
     { id: "6174f93e-6000-48c0-a7cd-365260d01c03", name: "Song Name", code: "songName" }
   ],
   number: [
-    { id: "7af83726-a030-4785-afa0-d9c1c18e00c9", name: "BigInt", code: "bigInt" },
     { id: "b48c7c2d-d238-466d-8b90-5d1beb2e3899", name: "Binary", code: "binary" },
     { id: "c7939c9e-e9d4-47c2-a4a1-4fc3635f78ae", name: "Float", code: "float" },
     { id: "7a6d14b1-a98f-4df7-9beb-60635a33fabe", name: "Hex", code: "hex" },
