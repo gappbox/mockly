@@ -2,7 +2,7 @@
   "name": "mockly",
   "author": "Ievgen Golovachov <ievgen.golovachov@codify.co.ua>",
   "description": "Easily generate and manage mock data for testing and development",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "scripts": {
     "install:all": "npm run install:backend && npm run install:frontend",
     "install:backend": "cd backend && npm install",
