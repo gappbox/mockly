@@ -202,7 +202,7 @@ const FieldModal = NiceModal.create(({ field }: { field: Field | null }) => {
             </HStack>
 
             <Card size="sm">
-              <CardBody>{JSON.stringify(example)}</CardBody>
+              <CardBody style={{ 'wordWrap': 'break-word' }}>{JSON.stringify(example)}</CardBody>
             </Card>
           </VStack>
         </ModalBody>
