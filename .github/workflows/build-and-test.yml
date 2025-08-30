@@ -10,11 +10,11 @@ on:
       - development
 
 jobs:
-  validate-labels:
+  labels-workflow:
     name: Labels Workflow
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Validate Required Labels
@@ -29,3 +29,36 @@ jobs:
               core.setFailed(`❌ Please add one of the following labels to proceed: "major", "minor", "patch".`);
               return;
             }
+
+  api-workflow:
+    name: API Workflow
+    needs: labels-workflow
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24.7.0"
+
+      - name: Install Dependencies
+        working-directory: ./api
+        run: npm install
+
+      - name: Lint
+        working-directory: ./api
+        run: npm run lint
+
+      - name: Unit Tests
+        working-directory: ./api
+        run: npm run test
+
+      - name: E2E Tests
+        working-directory: ./api
+        run: npm run test:e2e
+
+      - name: Build
+        working-directory: ./api
+        run: npm run build
