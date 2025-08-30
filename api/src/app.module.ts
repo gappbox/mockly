@@ -4,11 +4,18 @@ import { AppService } from './app.service';
 import { CacheMiddleware } from './middlewares/cache';
 import { HeadersMiddleware } from './middlewares/headers';
 import { MetadataMiddleware } from './middlewares/metadata';
+import { FakerModule } from './modules/faker';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    FakerModule,
+  ],
+  controllers: [
+    AppController,
+  ],
+  providers: [
+    AppService,
+  ],
 })
 export class AppModule implements NestModule {
   public configure(consumer: MiddlewareConsumer): void {

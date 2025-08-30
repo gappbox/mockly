@@ -5,16 +5,15 @@
   "version": "1.5.0",
   "license": "MIT",
   "scripts": {
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+    "start": "node dist/main",
     "build": "nest build",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
-    "start": "node dist/main",
-    "start:debug": "nest start --debug --watch",
-    "start:dev": "nest start --watch",
-    "test": "jest",
-    "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test": "jest --verbose",
+    "test:coverage": "jest --verbose --coverage",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "test:watch": "jest --watch"
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
   },
   "dependencies": {
     "@faker-js/faker": "10.0.0",
@@ -59,7 +58,12 @@
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "src/**/*.{ts,js}",
+      "!src/**/*.spec.ts",
+      "!src/main.ts",
+      "!src/app.module.ts",
+      "!src/**/index.ts",
+      "!dist/**"
     ],
     "coverageDirectory": "coverage",
     "testEnvironment": "node"
