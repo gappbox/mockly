@@ -53,7 +53,7 @@ jobs:
 
       - name: Unit Tests
         working-directory: ./api
-        run: npm run test
+        run: npm run test:coverage
 
       - name: E2E Tests
         working-directory: ./api
