@@ -7,10 +7,9 @@
   "scripts": {
     "build": "nest build",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
-    "start": "nest start",
+    "start": "node dist/main",
     "start:debug": "nest start --debug --watch",
     "start:dev": "nest start --watch",
-    "start:prod": "node dist/main",
     "test": "jest",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
@@ -18,6 +17,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@faker-js/faker": "10.0.0",
     "@nestjs/common": "11.1.6",
     "@nestjs/core": "11.1.6",
     "@nestjs/platform-express": "11.1.6",
