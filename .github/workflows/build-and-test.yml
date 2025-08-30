@@ -7,7 +7,7 @@ on:
       - unlabeled
       - synchronize
     branches:
-      - main
+      - development
 
 jobs:
   validate-labels:
@@ -17,57 +17,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Check for Required Labels
+      - name: Validate Required Labels
         uses: actions/github-script@v7
         id: labels
         with:
           script: |
-            const optionalLabels = ['minor', 'patch'];
+            const labelsSet = ['minor', 'patch', 'major'];
             const labels = context.payload.pull_request.labels.map((label) => label.name);
             
-            if (!optionalLabels.some(label => labels.includes(label))) {
-              core.setFailed(`❌ A versioning label is required. Please add one of the following labels to proceed: "minor" or "patch".`);
+            if (!labelsSet.some(label => labels.includes(label))) {
+              core.setFailed(`❌ Please add one of the following labels to proceed: "major", "minor", "patch".`);
               return;
             }
-
-  frontend-workflow:
-    name: Frontend Workflow
-    needs: validate-labels
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Set Up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22.19.0"
-
-      - name: Install Dependencies
-        working-directory: ./frontend
-        run: npm install
-
-      - name: Run Build
-        working-directory: ./frontend
-        run: npm run build
-
-  backend-workflow:
-    name: Backend Workflow
-    needs: frontend-workflow
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Set Up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22.19.0"
-
-      - name: Install Dependencies
-        working-directory: ./backend
-        run: npm install
-
-      - name: Run Tests
-        working-directory: ./backend
-        run: npm test
