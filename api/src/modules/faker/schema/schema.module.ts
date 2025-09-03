@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { SchemaController } from './schema.controller';
 import { SchemaService } from './schema.service';
+import { CategoryValidator } from './validators/category';
 
 @Module({
   controllers: [
@@ -8,6 +9,7 @@ import { SchemaService } from './schema.service';
   ],
   providers: [
     SchemaService,
+    CategoryValidator,
   ],
   exports: [
     SchemaService,
