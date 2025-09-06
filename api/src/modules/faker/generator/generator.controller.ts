@@ -1,7 +1,14 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { GenerateParamsDto } from './dtos';
 import { GeneratorService } from './generator.service';
 
-@Controller()
+@Controller('api/faker/generate')
 export class GeneratorController {
-  public constructor(private readonly generatorService: GeneratorService) {}
+  constructor(private readonly generatorService: GeneratorService) {}
+
+  @Post()
+  @HttpCode(HttpStatus.CREATED)
+  generate(@Body() body: GenerateParamsDto): Record<string, unknown>[] {
+    return this.generatorService.generate(body);
+  }
 }

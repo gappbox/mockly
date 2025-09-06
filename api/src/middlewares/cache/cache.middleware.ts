@@ -7,7 +7,7 @@ const MAX_AGE = 60 * 60 * 24 * 30;
 
 @Injectable()
 export class CacheMiddleware implements NestMiddleware {
-  public use(req: Request, res: Response, next: NextFunction): void {
+  use(req: Request, res: Response, next: NextFunction): void {
     const isStaticFile = REG_EXP.test(req.originalUrl);
     const cacheControl = isStaticFile ? `public, max-age=${MAX_AGE}` : 'no-store';
 

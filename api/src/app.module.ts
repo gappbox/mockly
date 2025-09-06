@@ -18,7 +18,7 @@ import { FakerModule } from './modules/faker';
   ],
 })
 export class AppModule implements NestModule {
-  public configure(consumer: MiddlewareConsumer): void {
+  configure(consumer: MiddlewareConsumer): void {
     consumer.apply(HeadersMiddleware).forRoutes('*');
     consumer.apply(CacheMiddleware).forRoutes('*');
     consumer.apply(MetadataMiddleware).forRoutes('*');

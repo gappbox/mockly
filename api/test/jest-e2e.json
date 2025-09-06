@@ -1,9 +1,14 @@
 {
+  "extensionsToTreatAsEsm": [".ts"],
   "moduleFileExtensions": ["js", "json", "ts"],
+  "moduleNameMapper": { "^(\\.{1,2}/.*)\\.js$": "$1" },
   "rootDir": ".",
   "testEnvironment": "node",
   "testRegex": ".e2e-spec.ts$",
   "transform": {
-    "^.+\\.(t|j)s$": "ts-jest"
-  }
+    "^.+\\.(t|j)s$": ["ts-jest", {
+      "useESM": true
+    }]
+  },
+  "transformIgnorePatterns": ["node_modules/(?!(@faker-js/faker)/)"]
 }

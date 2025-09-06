@@ -49,16 +49,6 @@
     "typescript-eslint": "8.41.0"
   },
   "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "./",
-    "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
     "collectCoverageFrom": [
       "src/**/*.{ts,js}",
       "!src/**/*.dto.ts",
@@ -71,6 +61,17 @@
       "!dist/**"
     ],
     "coverageDirectory": "coverage",
-    "testEnvironment": "node"
+    "extensionsToTreatAsEsm": [".ts"],
+    "moduleFileExtensions": ["js", "json", "ts"],
+    "rootDir": "./",
+    "testEnvironment": "node",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transformIgnorePatterns": ["node_modules/(?!(@faker-js/faker)/)"],
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest",
+      "^.+\\.tsx?$": ["ts-jest", {
+        "useESM": true
+      }]
+    }
   }
 }

@@ -73,7 +73,7 @@ describe('CategoryValidator', () => {
   });
 
   it('should return correct default error message', () => {
-    expect(categoryValidator.defaultMessage()).toBe('Invalid category code');
+    expect(categoryValidator.defaultMessage()).toBe('category is not exists');
   });
 
   it('should use schemaService to find matching category by code', () => {
