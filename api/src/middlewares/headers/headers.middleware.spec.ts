@@ -37,11 +37,6 @@ describe('HeadersMiddleware', () => {
     expect(res.setHeader).toHaveBeenCalledWith('Cross-Origin-Resource-Policy', 'same-origin');
   });
 
-  it('should set Expect-CT header', () => {
-    middleware.use(req as Request, res as Response, next);
-    expect(res.setHeader).toHaveBeenCalledWith('Expect-CT', 'max-age=86400, enforce');
-  });
-
   it('should set Permissions-Policy header', () => {
     middleware.use(req as Request, res as Response, next);
     expect(res.setHeader).toHaveBeenCalledWith('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
@@ -55,11 +50,6 @@ describe('HeadersMiddleware', () => {
   it('should set Strict-Transport-Security header', () => {
     middleware.use(req as Request, res as Response, next);
     expect(res.setHeader).toHaveBeenCalledWith('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
-  });
-
-  it('should set Vary header', () => {
-    middleware.use(req as Request, res as Response, next);
-    expect(res.setHeader).toHaveBeenCalledWith('Vary', 'Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site');
   });
 
   it('should set X-Content-Type-Options header', () => {

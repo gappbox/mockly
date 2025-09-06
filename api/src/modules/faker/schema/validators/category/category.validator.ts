@@ -5,9 +5,9 @@ import { SchemaService } from '../../schema.service';
 @ValidatorConstraint({ name: 'IsValidCategory' })
 @Injectable()
 export class CategoryValidator implements ValidatorConstraintInterface {
-  public constructor(private readonly schemaService: SchemaService) {}
+  constructor(private readonly schemaService: SchemaService) {}
 
-  public validate(value: unknown): boolean {
+  validate(value: unknown): boolean {
     if (typeof value !== 'string') {
       return false;
     }
@@ -17,8 +17,8 @@ export class CategoryValidator implements ValidatorConstraintInterface {
       .find((category) => category.code === value);
   }
 
-  public defaultMessage(): string {
-    return 'Invalid category code';
+  defaultMessage(): string {
+    return 'category is not exists';
   }
 }
 

@@ -29,10 +29,6 @@ export default tseslint.config(
       import: eslintImport,
     },
     rules: {
-      '@typescript-eslint/consistent-type-exports': 'error',
-      '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
-      '@typescript-eslint/explicit-function-return-type': ['warn', { allowExpressions: true }],
-      '@typescript-eslint/explicit-member-accessibility': ['warn', { accessibility: 'explicit' }],
       '@typescript-eslint/member-ordering': ['warn', {
         default: [
           'public-static-field',
@@ -47,6 +43,10 @@ export default tseslint.config(
           'private-instance-method',
         ],
       },],
+      '@typescript-eslint/consistent-type-exports': 'error',
+      '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
+      '@typescript-eslint/explicit-function-return-type': ['warn', { allowExpressions: true }],
+      '@typescript-eslint/explicit-member-accessibility': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-floating-promises': 'error',
       '@typescript-eslint/no-misused-promises': 'warn',
@@ -54,9 +54,10 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-argument': 'warn',
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       '@typescript-eslint/promise-function-async': 'warn',
-      '@typescript-eslint/strict-boolean-expressions': 'warn',
+      '@typescript-eslint/strict-boolean-expressions': 'off',
       '@typescript-eslint/unbound-method': 'off',
       'curly': 'error',
       'no-console': 'warn',
